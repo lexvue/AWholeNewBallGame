@@ -2,7 +2,10 @@
 
 
 #include "Ball_Pawn.h"
-
+#include "Camera/CameraComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
 
 
 // Sets default values

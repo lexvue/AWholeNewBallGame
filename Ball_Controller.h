@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "InputAction.h"
+#include "InputMappingContext.h"
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "Ball_Controller.generated.h"
@@ -14,4 +16,14 @@ class AWHOLENEWBALLGAME_API ABall_Controller : public APlayerController
 {
 	GENERATED_BODY()
 	
+public:
+    
+    virtual void SetupInputComponent() override;
+    
+    //MappingContext for Ball_Pawn
+    UPROPERTY()
+    class UInputMappingContext* PawnMappingContext;
+    
+    UPROPERTY()
+    class UInputAction* MoveAction;
 };
