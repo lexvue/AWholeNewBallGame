@@ -30,10 +30,16 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
     
+    void MoveRight(const struct FInputActionValue& ActionValue);
+    
     UPROPERTY(EditAnywhere)
     UCameraComponent* Camera;
     
     UPROPERTY(EditAnywhere)
     UStaticMeshComponent* PlayerShape;
+    
+    UPROPERTY(EditAnywhere)
+    class UFloatingPawnMovement* Movement;
 
+    
 };
