@@ -8,6 +8,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "GameFramework/FloatingPawnMovement.h"
 #include "Ball_Pawn.generated.h"
 
 UCLASS()
@@ -33,10 +34,10 @@ public:
     void MoveRight(const struct FInputActionValue& ActionValue);
     
     UPROPERTY(EditAnywhere)
-    UCameraComponent* Camera;
+    class UCameraComponent* Camera;
     
     UPROPERTY(EditAnywhere)
-    UStaticMeshComponent* PlayerShape;
+    class UStaticMeshComponent* PlayerShape;
     
     UPROPERTY(EditAnywhere)
     class UFloatingPawnMovement* Movement;

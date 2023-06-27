@@ -7,7 +7,8 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Ball_Controller.h"
-#include "Game/Framework/FloatingPawnMovement.h"
+#include "GameFramework/PawnMovementComponent.h"
+
 
 
 // Sets default values
@@ -34,6 +35,7 @@ ABall_Pawn::ABall_Pawn()
     Movement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("Movement"));
     
 
+
 }
 
 // Called when the game starts or when spawned
@@ -55,17 +57,17 @@ void ABall_Pawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-    UEnchancedInputComponent* EIC = Cast<UEnhancedInputController>(PlayerInputComponent);
+    UEnhancedInputComponent* EIC = Cast<UEnhancedInputComponent>(PlayerInputComponent);
     ABall_Controller* BC = Cast<ABall_Controller>(Controller);
     check (EIC && BC);
-    EIC->BindAction(FPC->MoveAction, ETriggerEvent::Triggered, this, &ABall_Pawn::MoveRight);
+    EIC->BindAction(BC->MoveAction, ETriggerEvent::Started, this, &ABall_Pawn::MoveRight);
     
-    ULocalPlayer* LocalPlayer = FPC->GetLocalPlayer();
+    ULocalPlayer* LocalPlayer = BC->GetLocalPlayer();
     check(LocalPlayer);
     UEnhancedInputLocalPlayerSubsystem* Subsystem = LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
     check(Subsystem);
     Subsystem->ClearAllMappings();
-    Subsystem->AddMappingContext(FPC->PawnMappingContext, 0);
+    Subsystem->AddMappingContext(BC->PawnMappingContext, 0);
 }
 
 void ABall_Pawn::MoveRight(const FInputActionValue& ActionValue) {
