@@ -14,27 +14,19 @@
 // Sets default values
 ABall_Pawn::ABall_Pawn()
 {
-    // Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-    PrimaryActorTick.bCanEverTick = true;
-   
-    // Set this pawn to be controlled by the lowest-numbered player
-    AutoPossessPlayer = EAutoReceiveInput::Player0;
-
-    // Create components
-    RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
+    
+    Sphere = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere"));
+    SetRootComponent(Sphere);
+    
+    Body = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Body"));
+    Body->SetupAttachment(Sphere);
+    
+    SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
+    SpringArm->SetupAttachment(Sphere);
+    
     Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-    PlayerShape =
-        CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PlayerShape"));
+    Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
     
-    // Attach our camera and visible object to our root component. Offset and rotate the camera.
-    Camera->SetupAttachment(RootComponent);
-    Camera->SetRelativeLocation(FVector(0.0f, 600.0f, 0.0f));
-    Camera->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
-    PlayerShape->SetupAttachment(RootComponent);
-    
-    Movement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("Movement"));
-    
-
 
 }
 
@@ -74,3 +66,5 @@ void ABall_Pawn::MoveRight(const FInputActionValue& ActionValue) {
     FVector Input = ActionValue.Get<FInputActionValue::Axis3D>();
     AddMovementInput(GetActorRotation().RotateVector(Input), 1.0f);
 }
+
+

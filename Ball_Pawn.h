@@ -4,6 +4,8 @@
 
 #include "Camera/CameraComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/SphereComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "CoreMinimal.h"
@@ -32,15 +34,21 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
     
     void MoveRight(const struct FInputActionValue& ActionValue);
+
+    UPROPERTY(EditAnywhere)
+    class USphereComponent* Sphere;
+    
+    UPROPERTY(EditAnywhere)
+    class UStaticMeshComponent* Body;
+    
+    UPROPERTY(EditAnywhere)
+    class USpringArmComponent* SpringArm;
     
     UPROPERTY(EditAnywhere)
     class UCameraComponent* Camera;
     
     UPROPERTY(EditAnywhere)
-    class UStaticMeshComponent* PlayerShape;
-    
-    UPROPERTY(EditAnywhere)
     class UFloatingPawnMovement* Movement;
-
+    
     
 };
