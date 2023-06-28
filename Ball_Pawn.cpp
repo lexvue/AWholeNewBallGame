@@ -27,6 +27,8 @@ ABall_Pawn::ABall_Pawn()
     Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
     Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
     
+    Movement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("Movement"));
+    
 
 }
 
