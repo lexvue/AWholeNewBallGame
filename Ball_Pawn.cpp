@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
+#include "Kismet/GameplayStatics.h"
+#include "Ball_UserWidget.h"
 #include "Ball_Pawn.h"
 #include "Camera/CameraComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -36,6 +37,14 @@ ABall_Pawn::ABall_Pawn()
 void ABall_Pawn::BeginPlay()
 {
 	Super::BeginPlay();
+    
+    if (IsLocallyControlled() && HUDClass) {
+    HUD = CreateWidget<UBall_UserWidget>(UGameplayStatics::GetPlayerController(GetWorld(), 0), HUDClass);
+    HUD->AddToViewport();
+    HUD->OnGetCoin(CurrentScore);
+    }
+    
+    isConnectedToPole = true;
 	
 }
 
@@ -65,8 +74,11 @@ void ABall_Pawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 }
 
 void ABall_Pawn::MoveRight(const FInputActionValue& ActionValue) {
-    FVector Input = ActionValue.Get<FInputActionValue::Axis3D>();
-    AddMovementInput(GetActorRotation().RotateVector(Input), 1.0f);
+    if (isConnectedToPole) {
+        FVector Input = ActionValue.Get<FInputActionValue::Axis3D>();
+        AddMovementInput(GetActorRotation().RotateVector(Input), 1.0f);
+        
+    }
 }
 
 

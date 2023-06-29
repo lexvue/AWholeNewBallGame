@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "Kismet/GameplayStatics.h"
+#include "Ball_UserWidget.h"
 #include "Camera/CameraComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
@@ -50,5 +52,23 @@ public:
     UPROPERTY(EditAnywhere)
     class UFloatingPawnMovement* Movement;
     
+    UPROPERTY(EditAnywhere)
+    bool isConnectedToPole;
+    
+protected:
+    UPROPERTY(BlueprintReadOnly, Category = "")
+    int32 CurrentScore;
+
+    UPROPERTY(EditDefaultsOnly, Category = "")
+    TSubclassOf<UUserWidget> HUDClass;
+
+    UPROPERTY(BlueprintReadOnly, Category = "")
+    class UBall_UserWidget* HUD;
+
+public:
+    UFUNCTION(BlueprintPure, Category = "")
+    int32 GetCurrentScore() const { return CurrentScore; }
+
+
     
 };
